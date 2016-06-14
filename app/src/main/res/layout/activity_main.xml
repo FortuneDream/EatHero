@@ -7,10 +7,12 @@
     tools:context="com.example.q.eathero.activity.MainActivity">
 
     <Button
+        android:text="添加店铺"
         android:id="@+id/add_shop_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
+        android:text="查看店铺"
         android:id="@+id/check_shop_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

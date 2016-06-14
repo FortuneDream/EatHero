@@ -16,9 +16,8 @@ public class CheckMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_check_map);
-        mapView= (MapView) findViewById(R.id.map_view);
+        mapView= (MapView) findViewById(R.id.check_map_view);
         BaiduMap baiduMap=mapView.getMap();
         baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.default_ico);//图标

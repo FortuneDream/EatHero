@@ -4,23 +4,33 @@ import android.graphics.Bitmap;
 
 import com.baidu.mapapi.model.LatLng;
 
+import java.io.File;
+
 /**
  * Created by Q on 2016/6/14.
  */
 public class ShopBean {
-    private LatLng latLng;
+    private String longitude;
+    private String latitude;
     private String shopName;
     private String description;//描述
-    private Bitmap bitmap;
+    private File bitmap;//bmobfile
     private int rank;//星级
-    private String comment;//评价
 
-    public LatLng getLatLng() {
-        return latLng;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLatLng(LatLng latLng) {
-        this.latLng = latLng;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
     public String getShopName() {
@@ -39,11 +49,11 @@ public class ShopBean {
         this.description = description;
     }
 
-    public Bitmap getBitmap() {
+    public File getBitmap() {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    public void setBitmap(File bitmap) {
         this.bitmap = bitmap;
     }
 
@@ -62,4 +72,7 @@ public class ShopBean {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    private String comment;//评价
+
 }
