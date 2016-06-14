@@ -6,10 +6,12 @@ import com.baidu.mapapi.model.LatLng;
 
 import java.io.File;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by Q on 2016/6/14.
  */
-public class ShopBean {
+public class ShopBean extends BmobObject{
     private String longitude;
     private String latitude;
     private String shopName;

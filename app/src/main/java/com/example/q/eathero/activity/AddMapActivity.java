@@ -39,7 +39,6 @@ public class AddMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_map);
         initView();
         setListener();
@@ -104,7 +103,7 @@ public class AddMapActivity extends AppCompatActivity {
         baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         baiduMap.setMyLocationEnabled(true);//开启定位图层
         //final LatLng point = new LatLng(39.963175, 116.400244);//定义Marker坐标点
-        bitmap= BitmapDescriptorFactory.fromResource(R.drawable.default_ico);//图标
+        bitmap= BitmapDescriptorFactory.fromResource(R.drawable.marker);//图标
     }
 
     @Override

@@ -17,12 +17,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
-
         //开启定位服务
         Intent intent=new Intent(this,GPSService.class);
         startService(intent);
-
         setContentView(R.layout.activity_main);
         findView();
         setListener();

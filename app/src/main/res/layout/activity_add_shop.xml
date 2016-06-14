@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="15dp"
     tools:context="com.example.q.eathero.activity.AddShopActivity">
 
     <TextView
@@ -22,9 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textSize="@dimen/text"
             android:text="位置：" />
 
         <EditText
+            android:inputType="numberDecimal"
             android:id="@+id/longitude_edt"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -32,6 +35,7 @@
             android:hint="请输入经度" />
 
         <EditText
+            android:inputType="numberDecimal"
             android:id="@+id/latitude_edt"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -63,8 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="店名："
-            android:textSize="20sp" />
+            android:textSize="@dimen/text" />
         <EditText
+            android:inputType="textLongMessage"
             android:hint="请输入店名"
             android:textSize="18sp"
             android:id="@+id/shop_name_edt"
@@ -82,9 +87,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="特色："
-            android:textSize="20sp" />
+            android:textSize="@dimen/text" />
 
         <EditText
+            android:inputType="textLongMessage"
             android:hint="请输入特色"
             android:id="@+id/special_edt"
             android:layout_width="match_parent"
@@ -117,20 +123,32 @@
             android:textSize="@dimen/text" />
 
         <ImageView
-            android:id="@+id/rank_img"
+            android:id="@+id/rank1_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/default_ico" />
+            android:src="@drawable/unlike_ico" />
 
         <ImageView
+            android:id="@+id/rank2_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/default_ico" />
+            android:src="@drawable/unlike_ico" />
 
         <ImageView
+            android:id="@+id/rank3_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/default_ico" />
+            android:src="@drawable/unlike_ico" />
+        <ImageView
+            android:id="@+id/rank4_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/unlike_ico" />
+        <ImageView
+            android:id="@+id/rank5_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/unlike_ico" />
     </LinearLayout>
 
     <LinearLayout
@@ -144,6 +162,7 @@
             android:textSize="@dimen/text" />
 
         <EditText
+            android:inputType="textLongMessage"
             android:id="@+id/assess_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
