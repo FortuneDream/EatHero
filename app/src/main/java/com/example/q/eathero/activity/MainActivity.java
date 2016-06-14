@@ -1,6 +1,7 @@
 package com.example.q.eathero.activity;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.q.eathero.service.GPSService;
 public class MainActivity extends AppCompatActivity {
     private Button addShopBtn;
     private Button checkShopBtn;
+    private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListener() {
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
         addShopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     private void findView() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         addShopBtn = (Button) findViewById(R.id.add_shop_btn);
         checkShopBtn = (Button) findViewById(R.id.check_shop_btn);
     }

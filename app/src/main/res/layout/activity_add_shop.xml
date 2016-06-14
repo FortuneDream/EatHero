@@ -19,17 +19,17 @@
         android:layout_height="100dp">
 
         <TextView
+            android:layout_marginTop="8dp"
             android:id="@+id/location_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:textSize="@dimen/text"
             android:text="位置：" />
 
         <EditText
             android:inputType="numberDecimal"
             android:id="@+id/longitude_edt"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/location_txt"
             android:hint="请输入经度" />
@@ -37,26 +37,18 @@
         <EditText
             android:inputType="numberDecimal"
             android:id="@+id/latitude_edt"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/location_txt"
             android:hint="请输入纬度" />
-
         <Button
-            android:id="@+id/add_shop_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
 
-            android:text="添加" />
-
-        <Button
             android:id="@+id/open_map_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/add_shop_btn"
+            android:layout_centerInParent="true"
             android:text="打开地图" />
     </RelativeLayout>
 
@@ -70,7 +62,7 @@
             android:textSize="@dimen/text" />
         <EditText
             android:inputType="textLongMessage"
-            android:hint="请输入店名"
+            android:hint="这家店叫什么呢？"
             android:textSize="18sp"
             android:id="@+id/shop_name_edt"
             android:layout_width="match_parent"
@@ -91,7 +83,7 @@
 
         <EditText
             android:inputType="textLongMessage"
-            android:hint="请输入特色"
+            android:hint="这个店有什么特色呢？"
             android:id="@+id/special_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -109,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="评价"
+        android:text="请打分O(∩_∩)O~"
         android:textSize="@dimen/text" />
 
     <LinearLayout
@@ -168,5 +160,10 @@
             android:layout_height="wrap_content"
             android:textSize="18sp" />
     </LinearLayout>
-
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/add_shop_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加" />
 </LinearLayout>
