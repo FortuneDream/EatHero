@@ -23,7 +23,6 @@ public class CheckMapActivity extends AppCompatActivity {
     private MapView mapView;
     private BitmapDescriptor bitmap;
     private BaiduMap baiduMap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
