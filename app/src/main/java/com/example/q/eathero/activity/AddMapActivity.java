@@ -2,6 +2,7 @@ package com.example.q.eathero.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,27 +13,34 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextOptions;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.inner.GeoPoint;
 import com.example.q.eathero.R;
 
 
 //添加标记
-public class AddMapActivity extends AppCompatActivity {
-    private static final String TAG = "BaiduMap";
+public class AddMapActivity extends BaseActivity {
+    private SharedPreferences sp;
     private BitmapDescriptor bitmap;
-    private MapView mapView;
+    private TextureMapView mapView;
     private Overlay icoMarker;
     private Overlay textMarker;
     private OverlayOptions icoOptions;
     private OverlayOptions textOptions;
     private LatLng markerLatLng;
-//    private LatLng nowLatLng;//北纬东经，latitude,longitude
+    //    private LatLng nowLatLng;//北纬东经，latitude,longitude
 //    private SharedPreferences sp;
     private BaiduMap baiduMap;
 
@@ -41,28 +49,28 @@ public class AddMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         initView();
+        initDate();
         setListener();
-//        OverlayOptions options = new MarkerOptions().position(point).icon(bitmap).zIndex(9).draggable(true);//设置拖动
-//        Marker marker = (Marker) (baiduMap.addOverlay(options));
-//        baiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
-//            @Override
-//            public void onMarkerDrag(Marker marker) {
-//                Log.e(TAG, "正在拖拽");
-//            }
-//
-//            @Override
-//            public void onMarkerDragEnd(Marker marker) {
-//                Log.e(TAG, "拖拽结束");
-//                LatLng point2 = marker.getPosition();
-//                marker.setPosition(point2);
-//
-//            }
-//
-//            @Override
-//            public void onMarkerDragStart(Marker marker) {
-//                Log.e(TAG, "开始拖拽");
-//            }
-//        });
+    }
+
+    private void initDate() {
+        //设置定图层
+        sp = getSharedPreferences("config", MODE_PRIVATE);
+        MyLocationData locData = new MyLocationData.Builder()
+                .latitude(Double.parseDouble(sp.getString("nowLatitude", "60")))
+                .longitude(Double.parseDouble(sp.getString("nowLongitude", "60"))).build();
+        baiduMap.setMyLocationData(locData);
+        MyLocationConfiguration config = new MyLocationConfiguration(null, true, bitmap);
+        baiduMap.setMyLocationConfigeration(config);
+
+        //设定中心点坐标
+        LatLng center = new LatLng(Double.parseDouble(sp.getString("nowLatitude", "60")), Double.parseDouble(sp.getString("nowLongitude", "60")));
+        MapStatus mMapStatus = new MapStatus.Builder()
+                .target(center).zoom(200)
+                .build();
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        //改变地图状态
+        baiduMap.setMapStatus(mMapStatusUpdate);
     }
 
     //设置baidumap点击事件
@@ -78,11 +86,11 @@ public class AddMapActivity extends AppCompatActivity {
                 textOptions = new TextOptions().bgColor(0xAAFFFF00).fontSize(24).fontColor(0xFFFF00FF).text("这个点").position(latLng);
                 icoMarker = baiduMap.addOverlay(icoOptions);
                 textMarker = baiduMap.addOverlay(textOptions);
-                markerLatLng =latLng;
-                Intent intent=new Intent();
-                intent.putExtra("longitude",markerLatLng.longitude);
-                intent.putExtra("latitude",markerLatLng.latitude);
-                setResult(1,intent);
+                markerLatLng = latLng;
+                Intent intent = new Intent();
+                intent.putExtra("longitude", markerLatLng.longitude);
+                intent.putExtra("latitude", markerLatLng.latitude);
+                setResult(1, intent);
             }
 
             @Override
@@ -93,24 +101,20 @@ public class AddMapActivity extends AppCompatActivity {
     }
 
     private void initView() {
-//        sp=getSharedPreferences("config",MODE_PRIVATE);
-//        String longitude=sp.getString("longitude","60");
-//        String latitude=sp.getString("latitude","60");
-//        nowLatLng=new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));//得到GPSService的定位信息
-//        Log.e(TAG,"longitude:"+longitude+"  latitude:"+latitude);
-        mapView = (MapView) findViewById(R.id.map_view);
+        mapView = (TextureMapView) findViewById(R.id.map_view);
         baiduMap = mapView.getMap();
         baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         baiduMap.setMyLocationEnabled(true);//开启定位图层
         //final LatLng point = new LatLng(39.963175, 116.400244);//定义Marker坐标点
-        bitmap= BitmapDescriptorFactory.fromResource(R.drawable.marker);//图标
+        bitmap = BitmapDescriptorFactory.fromResource(R.drawable.marker);//图标
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        Log.e(TAG,"onDestroy已经执行");
+        // 当不需要定位图层时关闭定位图层
+        baiduMap.setMyLocationEnabled(false);
         mapView.onDestroy();
     }
 

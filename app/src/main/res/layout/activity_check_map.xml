@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.q.eathero.activity.CheckMapActivity">
-    <com.baidu.mapapi.map.MapView
+    <com.baidu.mapapi.map.TextureMapView
         android:id="@+id/check_map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

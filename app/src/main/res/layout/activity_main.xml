@@ -16,6 +16,13 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/toolbar"
+            android:onClick="showLocation"
+            android:text="定位"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
             android:id="@+id/add_shop_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
