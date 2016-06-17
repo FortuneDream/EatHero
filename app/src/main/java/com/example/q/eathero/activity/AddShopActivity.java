@@ -128,15 +128,15 @@ public class AddShopActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         //取出数据,显示在edit中
         if (resultCode == 1) {
-            String longitude = String.valueOf(data.getDoubleExtra("longitude", 60));
-            String latitude = String.valueOf(data.getDoubleExtra("latitude", 60));
+            String longitude = data.getStringExtra("longitude");
+            String latitude = data.getStringExtra("latitude");
             LogUtil.e(TAG, "已经取出数据:" + "latitude:" + latitude + " longitude:" + longitude);
             longitudeEdt.setText(longitude);
             latitudeEdt.setText(latitude);
         } else {
             //直接返回没有选择地点，此处应该设置为当前的位置
-            longitudeEdt.setText(sp.getString("longitude", "60"));
-            latitudeEdt.setText(sp.getString("latitude", "60"));
+            longitudeEdt.setText(sp.getString("nowLongitude","20" ));
+            latitudeEdt.setText(sp.getString("nowLatitude", "20"));
         }
     }
 

@@ -28,6 +28,7 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.inner.GeoPoint;
 import com.example.q.eathero.R;
+import com.example.q.eathero.util.LogUtil;
 
 
 //添加标记
@@ -55,6 +56,7 @@ public class AddMapActivity extends BaseActivity {
 
     private void initDate() {
         //设置定图层
+        LogUtil.e(TAG,"initDate Start");
         sp = getSharedPreferences("config", MODE_PRIVATE);
         MyLocationData locData = new MyLocationData.Builder()
                 .latitude(Double.parseDouble(sp.getString("nowLatitude", "60")))
@@ -71,6 +73,7 @@ public class AddMapActivity extends BaseActivity {
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
         //改变地图状态
         baiduMap.setMapStatus(mMapStatusUpdate);
+        LogUtil.e(TAG,"initDate Over");
     }
 
     //设置baidumap点击事件
@@ -78,6 +81,7 @@ public class AddMapActivity extends BaseActivity {
         baiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                LogUtil.e(TAG,"onMapClick");
                 if (icoMarker != null && textMarker != null) {
                     icoMarker.remove();
                     textMarker.remove();
@@ -86,11 +90,13 @@ public class AddMapActivity extends BaseActivity {
                 textOptions = new TextOptions().bgColor(0xAAFFFF00).fontSize(24).fontColor(0xFFFF00FF).text("这个点").position(latLng);
                 icoMarker = baiduMap.addOverlay(icoOptions);
                 textMarker = baiduMap.addOverlay(textOptions);
+                LogUtil.e(TAG,"已添加点到地图上");
                 markerLatLng = latLng;
                 Intent intent = new Intent();
-                intent.putExtra("longitude", markerLatLng.longitude);
-                intent.putExtra("latitude", markerLatLng.latitude);
+                intent.putExtra("longitude", String.valueOf(markerLatLng.longitude));
+                intent.putExtra("latitude", String.valueOf(markerLatLng.latitude));
                 setResult(1, intent);
+                LogUtil.e(TAG,"设置返回信息");
             }
 
             @Override
@@ -101,12 +107,14 @@ public class AddMapActivity extends BaseActivity {
     }
 
     private void initView() {
+        LogUtil.e(TAG,"initView Start");
         mapView = (TextureMapView) findViewById(R.id.map_view);
         baiduMap = mapView.getMap();
         baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         baiduMap.setMyLocationEnabled(true);//开启定位图层
         //final LatLng point = new LatLng(39.963175, 116.400244);//定义Marker坐标点
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.marker);//图标
+        LogUtil.e(TAG,"initView Over");
     }
 
     @Override
