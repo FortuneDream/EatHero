@@ -26,10 +26,13 @@ import com.baidu.mapapi.model.LatLng;
 import com.example.q.eathero.R;
 import com.example.q.eathero.model.ShopBean;
 import com.example.q.eathero.util.LogUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.FindListener;
 
 public class CheckMapActivity extends AppCompatActivity {
@@ -62,6 +65,21 @@ public class CheckMapActivity extends AppCompatActivity {
             public void onSuccess(List<ShopBean> list) {
                 LogUtil.e(TAG, "当前线程：" + Thread.currentThread());
                 for (final ShopBean shopBean : list) {
+                    BmobFile bmobFile=shopBean.getPic();
+                    final String[] path = new String[1];
+                    if (bmobFile!=null){
+                        bmobFile.download(CheckMapActivity.this, new DownloadFileListener() {
+                            @Override
+                            public void onSuccess(String s) {
+                               path[0] =s;
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+
+                            }
+                        });
+                    }
                     final String latitude = shopBean.getLatitude();
                     String longitude = shopBean.getLongitude();
                     final int rank = shopBean.getRank();
@@ -94,7 +112,7 @@ public class CheckMapActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         Intent intent=new Intent(CheckMapActivity.this,ShopDetailActivity.class);
-                                        //+添加图片
+                                        intent.putExtra("photoPath",path[0]);
                                         intent.putExtra("shopName",name);
                                         intent.putExtra("special",description);
                                         intent.putExtra("assess",comment);

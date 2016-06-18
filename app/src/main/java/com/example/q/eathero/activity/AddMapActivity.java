@@ -123,6 +123,7 @@ public class AddMapActivity extends BaseActivity {
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         // 当不需要定位图层时关闭定位图层
         baiduMap.setMyLocationEnabled(false);
+        bitmap.recycle();
         mapView.onDestroy();
     }
 

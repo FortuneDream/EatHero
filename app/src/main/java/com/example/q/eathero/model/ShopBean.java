@@ -7,17 +7,27 @@ import com.baidu.mapapi.model.LatLng;
 import java.io.File;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by Q on 2016/6/14.
  */
-public class ShopBean extends BmobObject{
+public class ShopBean extends BmobObject {
     private String longitude;
     private String latitude;
     private String shopName;
     private String description;//描述
-    private File bitmap;//bmobfile
+    private BmobFile pic;
+
     private int rank;//星级
+
+    public BmobFile getPic() {
+        return pic;
+    }
+
+    public void setPic(BmobFile pic) {
+        this.pic = pic;
+    }
 
     public String getLongitude() {
         return longitude;
@@ -51,13 +61,6 @@ public class ShopBean extends BmobObject{
         this.description = description;
     }
 
-    public File getBitmap() {
-        return bitmap;
-    }
-
-    public void setBitmap(File bitmap) {
-        this.bitmap = bitmap;
-    }
 
     public int getRank() {
         return rank;

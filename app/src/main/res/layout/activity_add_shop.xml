@@ -89,12 +89,18 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="@dimen/text"
+        android:text="点击机器人添加图片:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/shop_photo_img"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="添加图片"
+
         android:src="@drawable/default_ico" />
 
     <TextView

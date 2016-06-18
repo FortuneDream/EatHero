@@ -2,6 +2,7 @@ package com.example.q.eathero.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,10 +16,17 @@ import android.widget.Toast;
 import com.example.q.eathero.R;
 import com.example.q.eathero.model.ShopBean;
 import com.example.q.eathero.util.LogUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 //添加店铺
 public class AddShopActivity extends AppCompatActivity implements View.OnClickListener {
@@ -39,11 +47,14 @@ public class AddShopActivity extends AppCompatActivity implements View.OnClickLi
     private EditText assessEdt;
     private SharedPreferences sp;
     private ArrayList<ImageView> ranks;
+    private ImageLoader loader;
+    private String phtopPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shop);
+        loader=ImageLoader.getInstance();
         findView();
         initData();
         setListener();
@@ -75,6 +86,20 @@ public class AddShopActivity extends AppCompatActivity implements View.OnClickLi
                     return;
                 }
                 ShopBean shopBean = new ShopBean();
+                LogUtil.e(TAG,"photoPath:"+phtopPath);
+                BmobFile bmobFile=new BmobFile(new File(phtopPath));//这里photopath=位置+名字，但是在服务器上只能显示名字，而要下载需要网址+名字，这里无解啊。
+                bmobFile.uploadblock(AddShopActivity.this, new UploadFileListener() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
+
                 shopBean.setLatitude(latitude);
                 shopBean.setLongitude(longitude);
                 shopBean.setShopName(shopName);
@@ -90,7 +115,7 @@ public class AddShopActivity extends AppCompatActivity implements View.OnClickLi
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "上传失败:"+s, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -101,6 +126,26 @@ public class AddShopActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(View v) {
                 Intent intent = new Intent(AddShopActivity.this, AddMapActivity.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+        shopPhotoImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GalleryFinal.openGallerySingle(1, new GalleryFinal.OnHanlderResultCallback() {
+                    @Override
+                    public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+                        for (PhotoInfo photoInfo:resultList){
+                            phtopPath=photoInfo.getPhotoPath();
+                            Uri uri=Uri.parse(phtopPath);
+                            shopPhotoImg.setImageURI(uri);
+                        }
+                    }
+
+                    @Override
+                    public void onHanlderFailure(int requestCode, String errorMsg) {
+
+                    }
+                });
             }
         });
     }

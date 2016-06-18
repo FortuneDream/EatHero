@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.q.eathero.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ShopDetailActivity extends AppCompatActivity {
     private TextView shopNameTxt;
@@ -15,11 +16,13 @@ public class ShopDetailActivity extends AppCompatActivity {
     private ImageView shopPhotoImg;
     private TextView assessTxt;
     private TextView rankTxt;
+    private ImageLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
+        loader=ImageLoader.getInstance();
         findView();
         initView();
     }
@@ -30,10 +33,12 @@ public class ShopDetailActivity extends AppCompatActivity {
         String special=intent.getStringExtra("special");
         String assess=intent.getStringExtra("assess");
         int rank=intent.getIntExtra("rank",0);
+        String photoPath=intent.getStringExtra("photoPath");
         shopNameTxt.setText(shopName);
         specialTxt.setText(special);
         assessTxt.setText(assess);
         rankTxt.setText(String.valueOf(rank));
+        loader.displayImage(photoPath,shopPhotoImg);
     }
 
     private void findView() {
